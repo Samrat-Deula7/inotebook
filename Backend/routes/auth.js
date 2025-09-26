@@ -3,10 +3,12 @@ const router = express.Router();
 const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-const JWT_SECRET = "Thisisa%*code";
+const fetchuser = require("../middleware/fetchuser");
+require("dotenv").config();
+const JWT_SECRET = process.env.JWT_SECRET;
 var jwt = require("jsonwebtoken");
 
-// Create a User using:POST "/api/auth/createuser". Doesn't require Auth
+// ROUTE 1: Create a User using:POST "/api/auth/createuser". Doesn't require Auth
 router.post(
   "/createuser",
   [
@@ -57,7 +59,7 @@ router.post(
   }
 );
 
-//Authenticate a User using:POST "/api/auth/login", No login required
+// ROUTE 1:Authenticate a User using:POST "/api/auth/login", No login required
 router.post(
   "/login",
   [
@@ -71,15 +73,15 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {email, password} = req.body;
+    const { email, password } = req.body;
     try {
-      let user =await User.findOne({email});
+      let user = await User.findOne({ email });
       if (!user) {
         return res
           .status(400)
           .json({ error: "Please try to login with correct credentials" });
       }
-      const passwordCompare =await bcrypt.compare(password, user.password);
+      const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         return res.status(400).json({
           error: "Please try to login with correct credentials",
@@ -101,5 +103,19 @@ router.post(
     }
   }
 );
+
+// ROUTE 3:Get loged in user details using:POST "/api/auth/getuser",  login required
+
+router.post("/getuser",fetchuser, async (req, res) => {
+ 
+  try {
+    userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;
