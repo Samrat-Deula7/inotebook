@@ -104,8 +104,9 @@ router.post(
   }
 );
 
-// ROUTE 3:Get loged in user details using:POST "/api/auth/getuser",  login required
+// ROUTE 3:Get loged in user details using:POST "/api/auth/getuser",  login required.
 
+// The fetchuser is an middleware that is used to fetch user data using authentication data.
 router.post("/getuser",fetchuser, async (req, res) => {
  
   try {
