@@ -5,11 +5,11 @@ import { useContext, useState } from "react";
       const context = useContext(noteContext);
       const { addNote } = context;
 
-      const [note, setNote] = useState({ title: "", description:"",tag:"" });
-      
+      const [note, setNote] = useState({ title: "", description:"",tag:"default" });
+
       const submitNotes=(e)=>{
         e.preventDefault();
-        addNote(note);
+        addNote(note.title,note.description,note.tag);
       }
 
      // In the following code the ...note is used to spread the object then add the value given in the right side of "," .
@@ -61,7 +61,7 @@ import { useContext, useState } from "react";
             className="btn btn-primary"
             onClick={submitNotes}
           >
-            Submit
+            Add Note
           </button>
         </form>
       </div>
