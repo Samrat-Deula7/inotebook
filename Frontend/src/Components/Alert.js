@@ -1,7 +1,7 @@
 
 const Alert=(props)=>{
     return (
-      <div class="alert alert-primary" role="alert">
+      <div className="alert alert-primary" role="alert">
       {props.message}
       </div>
     );

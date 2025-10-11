@@ -6,9 +6,14 @@ import { useContext, useState } from "react";
       const { addNote } = context;
 
       const [note, setNote] = useState({ title: "", description:"",tag:"" });
-      const handleClick=()=>{
-
+      
+      const submitNotes=(e)=>{
+        e.preventDefault();
+        addNote(note);
       }
+
+     // In the following code the ...note is used to spread the object then add the value given in the right side of "," .
+     // The value add is in key:value pair.  
     const onChange=(e)=>{
         setNote({...note,[e.target.name]:e.target.value})
     }
@@ -17,7 +22,7 @@ import { useContext, useState } from "react";
         <h2>Add a note</h2>
         <form>
           <div className="mb-3">
-            <label htmlfor="title" className="form-label">
+            <label htmlFor="title" className="form-label">
               Title
             </label>
             <input
@@ -30,14 +35,14 @@ import { useContext, useState } from "react";
             />
           </div>
           <div className="mb-3">
-            <label htmlfor="desc" className="form-label">
+            <label htmlFor="description" className="form-label">
               description
             </label>
             <input
               type="text"
               className="form-control"
-              id="desc"
-              name="desc"
+              id="description"
+              name="description"
               onChange={onChange}
             />
           </div>
@@ -47,14 +52,14 @@ import { useContext, useState } from "react";
               className="form-check-input"
               id="exampleCheck1"
             />
-            <label className="form-check-label" htmlfor="exampleCheck1">
+            <label className="form-check-label" htmlFor="exampleCheck1">
               Check me out
             </label>
           </div>
           <button
             type="submit"
             className="btn btn-primary"
-            onClick={handleClick}
+            onClick={submitNotes}
           >
             Submit
           </button>
