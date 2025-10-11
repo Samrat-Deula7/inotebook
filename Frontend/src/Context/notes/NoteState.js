@@ -134,13 +134,23 @@ const NoteState=(props)=>{
   // TODO: API Call.
   const deleteNote = (id) => {
     console.log(`Deleting note with id ${id}`);
+    // .filter() has an inbuild loop so it can access each note._id and compare it with the given id.
     const newNotes = notes.filter((note) => {
       return note._id !== id;
     });
     setNote(newNotes);
   };
   // Edit Note
-  const editNote = (id) => {};
+  const editNote = (id,title,description,tag) => {
+    for (let index = 0; index < notes.length; index++) {
+      const element = notes[index];
+      if(element._id===id){
+        element.title=title;
+        element.description=description;
+        element.tag=tag;
+      }
+    }
+  };
 
   return (
     <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote }}>
