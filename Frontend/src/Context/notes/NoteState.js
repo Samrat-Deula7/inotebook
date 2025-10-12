@@ -142,6 +142,10 @@ const NoteState=(props)=>{
   };
   // Edit Note
   const editNote = (id,title,description,tag) => {
+  
+  // API Call
+
+  // Logic to edit in client
     for (let index = 0; index < notes.length; index++) {
       const element = notes[index];
       if(element._id===id){
