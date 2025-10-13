@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef,useState } from "react";
 import noteContext from "../Context/notes/noteContext";
 import Noteitem from "./Noteitem";
 import AddNote from "./AddNote";
@@ -11,7 +11,24 @@ const Notes = () => {
   }, []);
 
   const ref=useRef(null)
-  const updateNote = (note) => {ref.current.click()};
+  
+  const updateNote = (currentNote) => {
+    ref.current.click()
+    setNote({etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag});
+  };
+
+    const [note, setNote] = useState({ etitle: "", edescription:"",etag:"" });
+  
+        const editNote = (e) => {
+          console.log("Editing note")
+          e.preventDefault();
+        };
+  
+       // In the following code the ...note is used to spread the object then add the value given in the right side of "," .
+       // The value add is in key:value pair.  
+      const onChange=(e)=>{
+          setNote({...note,[e.target.name]:e.target.value})
+      }
   return (
     <>
       <AddNote />
@@ -19,7 +36,7 @@ const Notes = () => {
       <button
         ref={ref}
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary d-none"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
@@ -29,7 +46,7 @@ const Notes = () => {
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -46,7 +63,55 @@ const Notes = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">...</div>
+            <div className="modal-body">
+              {/* form starts from here */}
+              <div className="container my-3">
+                <h2>Add a note</h2>
+                <form>
+                  <div className="mb-3">
+                    <label htmlFor="title" className="form-label">
+                      Title
+                    </label>
+                    <input
+                      type="Text"
+                      className="form-control"
+                      id="etitle"
+                      name="etitle"
+                      aria-describedby="emailHelp"
+                      value={note.etitle}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="description" className="form-label">
+                      description
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="edescription"
+                      name="edescription"
+                      value={note.edescription}
+                      onChange={onChange}
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">
+                      tag
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="etag"
+                      name="etag"
+                      value={note.etag}
+                      onChange={onChange}
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
             <div className="modal-footer">
               <button
                 type="button"
@@ -55,7 +120,11 @@ const Notes = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={editNote}
+              >
                 Update Note
               </button>
             </div>

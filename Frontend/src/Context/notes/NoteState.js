@@ -46,7 +46,6 @@ const NoteState = (props) => {
 
   // Get all Notes
   const getNotes = async () => {
-    console.log("Adding a new node");
     // API Call
     const url = `${host}/api/notes/fetchallnotes`;
     try {
