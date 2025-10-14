@@ -23,7 +23,7 @@ const Notes = () => {
         const changeNote = (e) => {
           refClose.current.click();
           console.log("Editing note");
-          e.preventDefault();
+          editNote(note.id,note.etitle,note.edescription, note.etag);
         };
   
        // In the following code the ...note is used to spread the object then add the value given in the right side of "," .
