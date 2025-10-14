@@ -10,6 +10,7 @@ import { useContext, useState } from "react";
       const submitNotes=(e)=>{
         e.preventDefault();
         addNote(note.title,note.description,note.tag);
+        setNote({ title: "", description: "", tag: "" });
       }
 
      // In the following code the ...note is used to spread the object then add the value given in the right side of "," .
@@ -31,6 +32,7 @@ import { useContext, useState } from "react";
               id="title"
               name="title"
               aria-describedby="emailHelp"
+              value={note.title}
               onChange={onChange}
             />
           </div>
@@ -43,6 +45,7 @@ import { useContext, useState } from "react";
               className="form-control"
               id="description"
               name="description"
+              value={note.description}
               onChange={onChange}
             />
           </div>
@@ -56,6 +59,7 @@ import { useContext, useState } from "react";
               className="form-control"
               id="tag"
               name="tag"
+              value={note.tag}
               onChange={onChange}
             />
           </div>
