@@ -38,7 +38,7 @@ const Signup = () => {
         localStorage.setItem("token", result.authtoken);
         navigate("/");
       } else {
-        throw new Error(`Response status: ${response.status}`);
+        alert("user already exists");
       }
     } catch (error) {
       console.error(error.message);
@@ -86,6 +86,8 @@ const Signup = () => {
             id="password"
             name="password"
             onChange={onChange}
+            minLength={5}
+            required
           />
         </div>
         <div className="mb-3">
@@ -93,11 +95,13 @@ const Signup = () => {
             Confirm Password
           </label>
           <input
-            type="cpassword"
+            type="password"
             className="form-control"
             id="cpassword"
             name="cpassword"
             onChange={onChange}
+            minLength={5}
+            required
           />
         </div>
 
