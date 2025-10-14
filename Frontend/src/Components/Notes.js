@@ -5,22 +5,24 @@ import AddNote from "./AddNote";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
   }, []);
 
   const ref=useRef(null)
+  const refClose=useRef(null)
+  const [note, setNote] = useState({id:"", etitle: "", edescription:"",etag:"" });
   
   const updateNote = (currentNote) => {
     ref.current.click()
-    setNote({etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag});
+    setNote({id:currentNote._id, etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag});
   };
 
-    const [note, setNote] = useState({ etitle: "", edescription:"",etag:"" });
   
-        const editNote = (e) => {
-          console.log("Editing note")
+        const changeNote = (e) => {
+          refClose.current.click();
+          console.log("Editing note");
           e.preventDefault();
         };
   
@@ -117,13 +119,14 @@ const Notes = () => {
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
+                ref={refClose}
               >
                 Close
               </button>
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={editNote}
+                onClick={changeNote}
               >
                 Update Note
               </button>
@@ -131,6 +134,7 @@ const Notes = () => {
           </div>
         </div>
       </div>
+
       <div className="row my-3">
         <h2>Your notes</h2>
         {notes.map((note) => {
