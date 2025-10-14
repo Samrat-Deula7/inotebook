@@ -127,6 +127,7 @@ const Notes = () => {
                 type="button"
                 className="btn btn-primary"
                 onClick={changeNote}
+                disabled={note.etitle.length<5 || note.edescription.length<5}
               >
                 Update Note
               </button>
@@ -137,6 +138,7 @@ const Notes = () => {
 
       <div className="row my-3">
         <h2>Your notes</h2>
+        {notes.length === 0 && <div className="container">You can add notes here</div>}
         {notes.map((note) => {
           return (
             <Noteitem key={note._id} updateNote={updateNote} note={note} />

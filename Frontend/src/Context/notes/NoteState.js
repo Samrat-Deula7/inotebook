@@ -26,22 +26,14 @@ const NoteState = (props) => {
         throw new Error(`Response status: ${response.status}`);
       }
 
-      const result = await response.json();
-      console.log(result);
+      const note = await response.json();
+      console.log(note);
+      setNote(notes.concat(note));
     } catch (error) {
       console.error(error.message);
     }
 
-    const note = {
-      _id: "234502374",
-      user: "68d65025f434de3915efaac8",
-      title: title,
-      description: description,
-      tag: tag,
-      date: "2025-09-28T13:57:21.749Z",
-      __v: 0,
-    };
-    setNote(notes.concat(note));
+  
   };
 
   // Get all Notes
