@@ -19,6 +19,7 @@ router.post(
     body("email", "Enter a valid email").isEmail(),
   ],
   async (req, res) => {
+    let Success=false;
     // The above array will set the restrictions rules and the following code will give error if those rules are broken.
     const errors = validationResult(req);
     // If error is empty is false then there is error so the if statement cathes the error.
@@ -51,8 +52,8 @@ router.post(
       };
       // This gives the user the authtoken using which the token can be transformed back into the user.id .And because of the secret helps to detect if the token has been Tampered(changed)
       const authtoken = jwt.sign(data, JWT_SECRET);
-
-      res.json({ authtoken: authtoken });
+      Success=true;
+      res.json({Success, authtoken: authtoken });
     } catch (error) {
       console.error(error);
       res.status(500).send("Some error occured");

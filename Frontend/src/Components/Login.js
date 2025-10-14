@@ -34,8 +34,7 @@ const Login = () => {
         navigate("/");
 
       } else {
-        throw new Error(`Response status: ${response.status}`);
-
+        alert("invalid credentials");
       }
     } catch (error) {
       console.error(error.message);
@@ -77,7 +76,7 @@ const Login = () => {
         </div>
 
         <button type="submit" className="btn btn-primary" onClick={createUser}>
-          Submit
+          Login
         </button>
       </form>
     </div>
