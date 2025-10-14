@@ -87,6 +87,7 @@ router.post(
         return res.status(400).json({
           error: "Please try to login with correct credentials",
         });
+        var Success=false;
       }
 
       // The following code generates an authentication token which is provided to the user
@@ -96,8 +97,8 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-
-      res.json({ authtoken: authtoken });
+      Success = true;
+      res.json({Success, authtoken: authtoken });
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal server error");
