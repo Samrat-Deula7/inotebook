@@ -47,7 +47,8 @@ const Login = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-3">
+      <h2>Login to continue to inotebook</h2>
       <form onSubmit={preventDefault}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">

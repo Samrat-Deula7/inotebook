@@ -53,7 +53,8 @@ else{
   };
 
   return (
-    <div>
+    <div className="mt-3">
+      <h2>Signup here to join inotebook</h2>
       <form onSubmit={preventDefault}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
