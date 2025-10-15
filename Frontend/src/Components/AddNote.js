@@ -1,7 +1,7 @@
  import noteContext from "../Context/notes/noteContext";
 import { useContext, useState } from "react";
 
- const AddNote=()=>{
+ const AddNote=(props)=>{
       const context = useContext(noteContext);
       const { addNote } = context;
 
@@ -11,6 +11,7 @@ import { useContext, useState } from "react";
         e.preventDefault();
         addNote(note.title,note.description,note.tag);
         setNote({ title: "", description: "", tag: "" });
+         props.showAlert("Note added successfully", "success");
       }
 
      // In the following code the ...note is used to spread the object then add the value given in the right side of "," .

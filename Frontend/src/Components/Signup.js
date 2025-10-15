@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup = (props) => {
+    
   const preventDefault = (e) => {
     e.preventDefault();
   };
@@ -18,6 +19,7 @@ const Signup = () => {
   };
 
   const createUser = async () => {
+    if(credentials.password==credentials.cpassword){
     // API Call
     const url = "http://localhost:5000/api/auth/createuser";
     const{name,email,password}=credentials;
@@ -37,12 +39,17 @@ const Signup = () => {
         // Save the auth token and redirect
         localStorage.setItem("token", result.authtoken);
         navigate("/");
+         props.showAlert("Successfully created your account", "success");
       } else {
-        alert("user already exists");
+        props.showAlert('Invalid Details','danger')
       }
     } catch (error) {
       console.error(error.message);
     }
+}
+else{
+    props.showAlert("Both passwords should be same", "danger");
+}
   };
 
   return (

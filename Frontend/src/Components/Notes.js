@@ -3,37 +3,47 @@ import noteContext from "../Context/notes/noteContext";
 import Noteitem from "./Noteitem";
 import AddNote from "./AddNote";
 
-const Notes = () => {
+const Notes = (props) => {
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
   }, []);
 
-  const ref=useRef(null)
-  const refClose=useRef(null)
-  const [note, setNote] = useState({id:"", etitle: "", edescription:"",etag:"" });
-  
+  const ref = useRef(null);
+  const refClose = useRef(null);
+  const [note, setNote] = useState({
+    id: "",
+    etitle: "",
+    edescription: "",
+    etag: "",
+  });
+
   const updateNote = (currentNote) => {
-    ref.current.click()
-    setNote({id:currentNote._id, etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag});
+    ref.current.click();
+    setNote({
+      id: currentNote._id,
+      etitle: currentNote.title,
+      edescription: currentNote.description,
+      etag: currentNote.tag,
+    });
+   
   };
 
-  
-        const changeNote = (e) => {
-          refClose.current.click();
-          console.log("Editing note");
-          editNote(note.id,note.etitle,note.edescription, note.etag);
-        };
-  
-       // In the following code the ...note is used to spread the object then add the value given in the right side of "," .
-       // The value add is in key:value pair.  
-      const onChange=(e)=>{
-          setNote({...note,[e.target.name]:e.target.value})
-      }
+  const changeNote = (e) => {
+    refClose.current.click();
+     props.showAlert("Note updated successfully", "success");
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+  };
+
+  // In the following code the ...note is used to spread the object then add the value given in the right side of "," .
+  // The value add is in key:value pair.
+  const onChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value });
+  };
   return (
     <>
-      <AddNote />
+      <AddNote showAlert={props.showAlert} />
 
       <button
         ref={ref}
@@ -127,7 +137,9 @@ const Notes = () => {
                 type="button"
                 className="btn btn-primary"
                 onClick={changeNote}
-                disabled={note.etitle.length<5 || note.edescription.length<5}
+                disabled={
+                  note.etitle.length < 5 || note.edescription.length < 5
+                }
               >
                 Update Note
               </button>
@@ -138,10 +150,12 @@ const Notes = () => {
 
       <div className="row my-3">
         <h2>Your notes</h2>
-        {notes.length === 0 && <div className="container">You can add notes here</div>}
+        {notes.length === 0 && (
+          <div className="container">You can add notes here</div>
+        )}
         {notes.map((note) => {
           return (
-            <Noteitem key={note._id} updateNote={updateNote} note={note} />
+            <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
           );
         })}
       </div>
