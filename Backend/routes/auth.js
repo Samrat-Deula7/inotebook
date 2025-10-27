@@ -65,7 +65,7 @@ router.post(
 router.post(
   "/login",
   [
-    body("password", "Passwoed cannot be black").exists(),
+    body("password", "Password cannot be black").exists(),
     body("email", "Enter a valid email").isEmail(),
   ],
   async (req, res) => {
