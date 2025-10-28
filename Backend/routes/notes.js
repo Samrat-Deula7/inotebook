@@ -74,6 +74,8 @@ router.put("/updatenote/:id", fetchuser, async (req, res) => {
       return res.status(404).send("Not Found");
     }
 
+    // note.user.toString() comes form params
+    // req.user.id comes from fetchuser middleware
     if (note.user.toString() !== req.user.id) {
       return res.status(401).send("Not Allowed");
     }
